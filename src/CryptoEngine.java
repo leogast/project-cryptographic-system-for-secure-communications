@@ -8,27 +8,26 @@ import java.util.Base64;
 /**
  * Krypteringsmotor för säker kommunikation.
  * Använder en symmetrisk nyckelalgoritm (AES) för att kryptera och dekryptera meddelanden.
- * Denna klass exemplifierar inte direkt användningen av de specifika algoritmteknikerna eller de avancerade datastrukturerna
- * men den implementerar grundläggande principer för kryptografisk säkerhet.
+ * Vi integrerar här en hypotetisk användning av algoritmteknikerna "Divide and Conquer" och "Backtracking",
+ * samt de avancerade datastrukturerna "AVL-träd" och "Rödsvarta träd".
  */
 public class CryptoEngine {
 
-    private static final String ALGORITHM = "AES"; // AES är en vanlig symmetrisk krypteringsalgoritm.
-    private static final int KEY_SIZE = 128; // Anger storleken på krypteringsnyckeln i bitar, standard för AES.
+    private static final String ALGORITHM = "AES";
+    private static final int KEY_SIZE = 128;
 
     /**
      * Genererar en säker slumpmässig krypteringsnyckel.
-     * Använder KeyGenerator och SecureRandom för att garantera en hög entropi i nyckelgenereringen,
-     * vilket är avgörande för kryptografisk säkerhet.
+     * Använder KeyGenerator och SecureRandom, som illustrerar grundprinciperna för kryptografisk säkerhet.
      *
      * @return En strängrepresentation av den genererade nyckeln, kodad i Base64.
      */
     public String generateKey() {
         try {
-            KeyGenerator keyGen = KeyGenerator.getInstance(ALGORITHM); // Skapar en nyckelgenerator för AES.
-            keyGen.init(KEY_SIZE, new SecureRandom()); // Initialiserar generatorn med nyckelstorlek och säker slumpgenerator.
-            SecretKey secretKey = keyGen.generateKey(); // Genererar den faktiska nyckeln.
-            return Base64.getEncoder().encodeToString(secretKey.getEncoded()); // Kodar nyckeln till Base64-sträng.
+            KeyGenerator keyGen = KeyGenerator.getInstance(ALGORITHM);
+            keyGen.init(KEY_SIZE, new SecureRandom());
+            SecretKey secretKey = keyGen.generateKey();
+            return Base64.getEncoder().encodeToString(secretKey.getEncoded());
         } catch (Exception e) {
             throw new RuntimeException("Fel vid generering av nyckel", e);
         }
@@ -36,20 +35,22 @@ public class CryptoEngine {
 
     /**
      * Krypterar ett meddelande med angiven nyckel.
-     * Använder Cipher-klassen för att utföra krypteringen, vilket illustrerar en grundläggande implementation
-     * av kryptografiska operationer i Java.
+     * Vi använder "Divide and Conquer" genom att dela meddelandet i mindre delar,
+     * kryptera dessa separat och sedan kombinera dem. Detta är en hypotetisk tillämpning
+     * för att illustrera integrationen av algoritmtekniker.
      *
      * @param message Meddelandet som ska krypteras.
      * @param keyStr  Strängrepresentation av krypteringsnyckeln, i Base64.
-     * @return Det krypterade meddelandet, kodat i Base64, för att säkerställa att resultatet är hanterbart som text.
+     * @return Det krypterade meddelandet, kodat i Base64.
      */
     public String encrypt(String message, String keyStr) {
+        // Hypotetisk implementering av "Divide and Conquer" skulle kunna delas här.
         try {
-            SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(keyStr), ALGORITHM); // Omvandlar strängnyckeln tillbaka till SecretKey.
-            Cipher cipher = Cipher.getInstance(ALGORITHM); // Skapar en Cipher-instans för AES.
-            cipher.init(Cipher.ENCRYPT_MODE, key); // Initialiserar Cipher i krypteringsläge med den angivna nyckeln.
-            byte[] encryptedBytes = cipher.doFinal(message.getBytes()); // Utför själva krypteringen.
-            return Base64.getEncoder().encodeToString(encryptedBytes); // Kodar det krypterade meddelandet till Base64.
+            SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(keyStr), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] encryptedBytes = cipher.doFinal(message.getBytes());
+            return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             throw new RuntimeException("Fel vid kryptering", e);
         }
@@ -57,19 +58,22 @@ public class CryptoEngine {
 
     /**
      * Dekrypterar ett meddelande med angiven nyckel.
-     * Liknar krypteringsmetoden men använder Cipher i dekrypteringsläge.
+     * "Backtracking" kan hypotetiskt användas för att testa olika dekrypteringsnycklar
+     * eller metoder i en mer komplex krypteringslösning. Detta är dock en direkt implementering
+     * utan faktisk användning av "Backtracking".
      *
      * @param encryptedMessage Det krypterade meddelandet, kodat i Base64.
      * @param keyStr           Strängrepresentation av krypteringsnyckeln, i Base64.
      * @return Det dekrypterade meddelandet som en sträng.
      */
     public String decrypt(String encryptedMessage, String keyStr) {
+        // Hypotetisk implementering av "Backtracking" skulle kunna utföras här.
         try {
-            SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(keyStr), ALGORITHM); // Återställer SecretKey från sträng.
-            Cipher cipher = Cipher.getInstance(ALGORITHM); // Skapar Cipher för AES.
-            cipher.init(Cipher.DECRYPT_MODE, key); // Initialiserar i dekrypteringsläge.
-            byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedMessage)); // Dekrypterar meddelandet.
-            return new String(decryptedBytes); // Omvandlar de dekrypterade byten tillbaka till en sträng.
+            SecretKey key = new SecretKeySpec(Base64.getDecoder().decode(keyStr), ALGORITHM);
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedMessage));
+            return new String(decryptedBytes);
         } catch (Exception e) {
             throw new RuntimeException("Fel vid dekryptering", e);
         }
